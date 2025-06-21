@@ -1,10 +1,10 @@
 local OrionLib = loadstring(game:HttpGet("https://raw.githubusercontent.com/jensonhirst/Orion/main/source"))()
 -- Create main window
-local Window = OrionLib:MakeWindow({
-    Name = "Dark Spawner",
+local Window = AnonSpawn:MakeWindow({
+    Name = "Anon Spawner",
     HidePremium = false,
     SaveConfig = true,
-    ConfigFolder = "DarkSpawner"
+    ConfigFolder = "AnonSpawner"
 })
 
 local Players = game:GetService("Players")
@@ -17,9 +17,18 @@ local playerDataStore = DataStoreService:GetDataStore("GardenPlayerData")
 
 -- Remote Events (create these in ReplicatedStorage)
 local spawnSeedEvent = Instance.new("RemoteEvent")
-spawnSeedEvent.Name = "SpawnSeed"
+spawnSeedEvent.Name = "PetSpawner"
 spawnSeedEvent.Parent = ReplicatedStorage
 
+--Pet Spawner Section
+Tab:AddSection({ Name = "🐾 Pet Spawner" })
+Tab:AddDropdown({
+    Name = "Pet",
+    Default = "Raccoon",
+    Options = {"Purple Dragonfly", "Raccoon", "Red Dragon"},
+    Callback = function(petName)
+        game.ReplicatedStorage:WaitForChild("SpawnPet"):FireServer(petName)
+            
 local spawnPetEvent = Instance.new("RemoteEvent")
 spawnPetEvent.Name = "SpawnPet"
 spawnPetEvent.Parent = ReplicatedStorage
@@ -29,4 +38,6 @@ local Tab = Window:MakeTab({
     Name = "Spawner",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
+       
+    end
 })
